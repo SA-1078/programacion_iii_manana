@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Formulario de Registro de Moto</title>
+</head>
+<body>
+    <p>Registro de Compra de Moto</p>
+    <form action="procesar.php" method="post">
+        <table border="0">
+            <tr>
+                <td>
+                    <label for="nombre">Nombre del Comprador:</label>
+                    <input type="text" id="nombre" name="nombre">
+                </td>
+                <td>
+                    <label for="correo">Correo Electrónico:</label>
+                    <input type="email" id="correo" name="correo">
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label for="fecha">Fecha de Entrega:</label>
+                    <input type="date" id="fecha" name="fecha">
+                </td>
+                <td>
+                    <label for="color">Color de la Moto:</label>
+                    <input type="color" id="color" name="color">
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label>Tipo de Licencia:</label>
+                    <input type="radio" id="a" name="licencia" value="A"><label for="a">Tipo A</label>
+                    <input type="radio" id="b" name="licencia" value="B"><label for="b">Tipo B</label>
+                </td>
+                <td>
+                    <label for="marca">Marca:</label>
+                    <select id="marca" name="marca">
+                        <option value="">Seleccione...</option>
+                        <option value="yamaha">Yamaha</option>
+                        <option value="honda">Honda</option>
+                        <option value="kawasaki">Kawasaki</option>
+                        <option value="bmw">BMW</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label for="comentarios">Especificaciones Adicionales:</label>
+                    <textarea id="comentarios" name="comentarios" rows="5"></textarea>
+                </td>
+                <td>
+                    <input type="checkbox" id="acepto" name="acepto" required>
+                    <label for="acepto">Acepto las condiciones de garantía</label>
+                </td>
+            </tr>
+        </table>
+        <input type="submit" value="Registrar Compra">
+        <input type="reset" value="Limpiar">
+    </form>
+</body>
+</html>
