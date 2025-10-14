@@ -2,6 +2,7 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Contacto - Mundo Motos</title>
 </head>
 <body>
@@ -9,28 +10,49 @@
         <h1>Contacto</h1>
         <nav>
             <ul>
-                <li><a href="01__index.html">Inicio</a></li>
+                <li><a href="01_index.html">Inicio</a></li>
                 <li><a href="02_deportivas.html">Motos Deportivas</a></li>
                 <li><a href="03_aventura.html">Motos Adventure</a></li>
                 <li><a href="04_contacto.html">Contacto</a></li>
+                <li><a href="05_tabla.html">Tabla de Modelos</a></li>
             </ul>
         </nav>
     </header>
+
     <main>
-        <h2>Contacta con Nosotros</h2>
-        <form>
-            <label for="nombre">Nombre:</label><br>
-            <input type="text" id="nombre" name="nombre"><br>
-            
-            <label for="email">Email:</label><br>
-            <input type="email" id="email" name="email"><br>
-            
-            <label for="mensaje">Mensaje:</label><br>
-            <textarea id="mensaje" name="mensaje" rows="4"></textarea><br>
-            
-            <input type="submit" value="Enviar">
+        <h2>Formulario de Contacto</h2>
+        <form action="#" method="post">
+            <fieldset>
+                <legend>Información Personal</legend>
+
+                <label for="nombre">Nombre:</label><br>
+                <input type="text" id="nombre" name="nombre" required><br>
+
+                <label for="email">Correo electrónico:</label><br>
+                <input type="email" id="email" name="email" required><br>
+
+                <label for="telefono">Teléfono:</label><br>
+                <input type="number" id="telefono" name="telefono"><br>
+
+                <label for="fecha">Fecha de contacto:</label><br>
+                <input type="date" id="fecha" name="fecha"><br>
+            </fieldset>
+
+            <fieldset>
+                <legend>Preferencias</legend>
+                <label><input type="radio" name="tipo" value="deportiva"> Motos Deportivas</label><br>
+                <label><input type="radio" name="tipo" value="aventura"> Motos Adventure</label><br>
+
+                <label><input type="checkbox" name="suscripcion" value="si"> Deseo recibir novedades por correo</label><br>
+
+                <label for="mensaje">Mensaje:</label><br>
+                <textarea id="mensaje" name="mensaje" rows="4"></textarea><br>
+            </fieldset>
+
+            <button type="submit">Enviar</button>
         </form>
     </main>
+
     <footer>
         <p>© 2025 Mundo Motos</p>
     </footer>
