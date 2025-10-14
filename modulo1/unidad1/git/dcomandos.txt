@@ -1,0 +1,3 @@
+git add .
+git commit -m 'clase 2025-10-02'
+git push origin semana 1
