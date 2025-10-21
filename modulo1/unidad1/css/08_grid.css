@@ -1,0 +1,16 @@
+.grid{
+    display: grid;
+    grid-template-columns: 100px 100px 100px;
+    grid-template-rows: 100px 100px 100px;
+    gap: 10px;
+    background-color: #2196f3;
+    padding: 10px;
+}
+.item {
+    background-color: greenyellow;
+    padding: 20px;
+    border: 2px solid #F57C00;
+    text-align: center;
+    border: 20px solid #F57C00;
+    box-shadow: 2px 2px 12px rgba(0,0,0,0.5);
+}
