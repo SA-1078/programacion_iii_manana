@@ -1,12 +1,19 @@
 <!DOCTYPE html>
-<head
+<html lang="es">
+<head>
     <meta charset="UTF-8">
     <script src="04_eventos.js" defer></script>
-
 </head>
 <body>
     <div id="contenedor"></div>
     <button id="crear">Crear</button>
     <button id="eliminar">Eliminar</button>
+    <button onclick="alert('Hola con Javascript Inline')">Hello con Javascript</button>
+    <button onclick="saludar()">Hello desde una función</button>
+    <p id="parrafo">Hacer doble click</p>
+    <form id="formulario" style="margin-top: 20px;">
+        <input type="text" id="nombre" placeholder="Incluye nombre" />
+        <button type="submit">Enviar</button>
+    </form>      
 </body>
 </html>
