@@ -4,17 +4,23 @@ import { Repository } from 'typeorm';
 import { Category } from './category.entity';
 import { CreateCategoryDto } from './dto/create-category.dto';
 import { UpdateCategoryDto } from './dto/update-category.dto';
+import { IPaginationOptions, paginate, Pagination } from 'nestjs-typeorm-paginate';
 
 @Injectable()
 export class CategoriesService {
   constructor(
     @InjectRepository(Category)
     private readonly categoryRepository: Repository<Category>,
-  ) {}
+  ) { }
 
   create(createCategoryDto: CreateCategoryDto) {
     const category = this.categoryRepository.create(createCategoryDto);
     return this.categoryRepository.save(category);
+  }
+
+  async findAllPaginated(options: IPaginationOptions): Promise<Pagination<Category>> {
+    const queryBuilder = this.categoryRepository.createQueryBuilder('category');
+    return paginate<Category>(queryBuilder, options);
   }
 
   findAll() {
