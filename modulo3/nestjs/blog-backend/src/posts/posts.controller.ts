@@ -1,11 +1,23 @@
-import { Controller, Post as HttpPost, Body, Get, Param, Put, Delete, UseGuards, Query } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post as HttpPost,
+  Body,
+  Param,
+  Delete,
+  Put,
+  Query,
+  UseGuards,
+  NotFoundException,
+  InternalServerErrorException,
+} from '@nestjs/common';
 import { PostsService } from './posts.service';
 import { CreatePostDto } from './dto/create-post.dto';
 import { UpdatePostDto } from './dto/update-post.dto';
-import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
 import { Pagination } from 'nestjs-typeorm-paginate';
-import { User } from 'src/users/user.entity';
-import { Post } from './post.entity';
+import { Post as PostEntity } from './post.entity';
+import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
+import { SuccessResponseDto } from 'src/common/dto/response.dto';
 
 @Controller('posts')
 export class PostsController {
@@ -13,33 +25,54 @@ export class PostsController {
 
   @HttpPost()
   @UseGuards(JwtAuthGuard)
-  create(@Body() createPostDto: CreatePostDto) {
-    return this.postsService.create(createPostDto);
+  async create(@Body() createPostDto: CreatePostDto): Promise<SuccessResponseDto<PostEntity>> {
+    const post = await this.postsService.create(createPostDto);
+    return new SuccessResponseDto('Post created successfully', post);
   }
 
   @Get()
-  findAll(
+  async findAll(
     @Query('page') page = 1,
     @Query('limit') limit = 10,
-  ): Promise<Pagination<Post>> {
+    @Query('search') search?: string,
+    @Query('searchField') searchField = 'title',
+    @Query('sortBy') sortBy = 'id',
+    @Query('sortOrder') sortOrder: 'ASC' | 'DESC' = 'ASC',
+  ): Promise<SuccessResponseDto<Pagination<PostEntity>>> {
     limit = limit > 100 ? 100 : limit;
-    return this.postsService.findAll({ page, limit });
+
+    const result = await this.postsService.findAll({
+      page: Number(page),
+      limit: Number(limit),
+      search,
+      searchField,
+      sortBy,
+      sortOrder,
+    });
+
+    return new SuccessResponseDto('Posts retrieved successfully', result);
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.postsService.findOne(id);
+  async findOne(@Param('id') id: string): Promise<SuccessResponseDto<PostEntity>> {
+    const post = await this.postsService.findOne(id);
+    return new SuccessResponseDto('Post retrieved successfully', post);
   }
 
   @Put(':id')
   @UseGuards(JwtAuthGuard)
-  update(@Param('id') id: string, @Body() updatePostDto: UpdatePostDto) {
-    return this.postsService.update(id, updatePostDto);
+  async update(
+    @Param('id') id: string,
+    @Body() updatePostDto: UpdatePostDto,
+  ): Promise<SuccessResponseDto<PostEntity>> {
+    const updated = await this.postsService.update(id, updatePostDto);
+    return new SuccessResponseDto('Post updated successfully', updated);
   }
 
   @Delete(':id')
   @UseGuards(JwtAuthGuard)
-  remove(@Param('id') id: string) {
-    return this.postsService.remove(id);
+  async remove(@Param('id') id: string): Promise<SuccessResponseDto<null>> {
+    await this.postsService.remove(id);
+    return new SuccessResponseDto('Post deleted successfully', null);
   }
 }
