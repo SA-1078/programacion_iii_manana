@@ -1,25 +1,18 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { paginate, IPaginationOptions, Pagination } from 'nestjs-typeorm-paginate';
+import { paginate, Pagination } from 'nestjs-typeorm-paginate';
 import { Category } from './category.entity';
 import { CreateCategoryDto } from './dto/create-category.dto';
 import { UpdateCategoryDto } from './dto/update-category.dto';
-
-
-interface CategoryPaginationOptions extends IPaginationOptions {
-  search?: string;
-  searchField?: string;
-  sortBy?: string;
-  sortOrder?: 'ASC' | 'DESC';
-}
+import { QueryDto } from 'src/common/dto/query.dto';
 
 @Injectable()
 export class CategoriesService {
   constructor(
     @InjectRepository(Category)
     private readonly categoryRepo: Repository<Category>,
-  ) { }
+  ) {}
 
   async create(dto: CreateCategoryDto): Promise<Category | null> {
     try {
@@ -31,32 +24,47 @@ export class CategoriesService {
     }
   }
 
-  async findAll(options: CategoryPaginationOptions): Promise<Pagination<Category>> {
-    const { search, searchField, sortBy, sortOrder } = options;
+  async findAll(queryDto: QueryDto): Promise<Pagination<Category> | null> {
+    try {
+      const { page, limit, search, searchField, sort, order } = queryDto;
+      const query = this.categoryRepo.createQueryBuilder('category');
 
-    const queryBuilder = this.categoryRepo.createQueryBuilder('category');
+      if (search) {
+        if (searchField) {
+          switch (searchField) {
+            case 'name':
+              query.where('category.name ILIKE :search', {
+                search: `%${search}%`,
+              });
+              break;
+            case 'description':
+              query.where('category.description ILIKE :search', {
+                search: `%${search}%`,
+              });
+              break;
+            default:
+              query.where(
+                '(category.name ILIKE :search OR category.description ILIKE :search)',
+                { search: `%${search}%` },
+              );
+          }
+        } else {
+          query.where(
+            '(category.name ILIKE :search OR category.description ILIKE :search)',
+            { search: `%${search}%` },
+          );
+        }
+      }
 
-    // Campos permitidos para búsqueda y ordenamiento (evitar SQL injection)
-    const allowedSearchFields = ['name', 'slug', 'description'];
-    const allowedSortFields = ['id', 'name', 'createdAt'];
+      if (sort) {
+        query.orderBy(`category.${sort}`, (order ?? 'ASC') as 'ASC' | 'DESC');
+      }
 
-    if (search && searchField && allowedSearchFields.includes(searchField)) {
-      queryBuilder.andWhere(
-        `LOWER(category.${searchField}) LIKE :search`,
-        { search: `%${search.toLowerCase()}%` },
-      );
+      return await paginate<Category>(query, { page, limit });
+    } catch (err) {
+      console.error('Error retrieving categories:', err);
+      return null;
     }
-
-    const orderField = sortBy && allowedSortFields.includes(sortBy) ? sortBy : 'id';
-    const orderDirection: 'ASC' | 'DESC' =
-      sortOrder === 'DESC' ? 'DESC' : 'ASC';
-
-    queryBuilder.orderBy(`category.${orderField}`, orderDirection);
-
-    return paginate<Category>(queryBuilder, {
-      page: options.page,
-      limit: options.limit,
-    });
   }
 
   async findOne(id: string): Promise<Category | null> {

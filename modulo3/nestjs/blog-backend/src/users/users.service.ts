@@ -2,18 +2,15 @@ import * as bcrypt from 'bcrypt';
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { paginate, IPaginationOptions, Pagination } from 'nestjs-typeorm-paginate';
+import {
+  paginate,
+  Pagination,
+} from 'nestjs-typeorm-paginate';
 import { User } from './user.entity';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
+import { QueryDto } from 'src/common/dto/query.dto';
 
-
-interface UserPaginationOptions extends IPaginationOptions {
-  search?: string;
-  searchField?: string;
-  sortBy?: string;
-  sortOrder?: 'ASC' | 'DESC';
-}
 @Injectable()
 export class UsersService {
   constructor(
@@ -35,31 +32,57 @@ export class UsersService {
     }
   }
 
-  async findAll(options: UserPaginationOptions): Promise<Pagination<User>> {
-    const { search, searchField, sortBy, sortOrder } = options;
+  async findAll(
+    queryDto: QueryDto,
+    isActive?: boolean,
+  ): Promise<Pagination<User> | null> {
+    try {
+      const { page, limit, search, searchField, sort, order } = queryDto;
 
-    const queryBuilder = this.userRepository.createQueryBuilder('user');
+      const query = this.userRepository.createQueryBuilder('user');
 
-    const allowedSearchFields = ['email', 'username'];
-    const allowedSortFields = ['id', 'username', 'email'];
+      if (isActive !== undefined) {
+        query.andWhere('user.isActive = :isActive', { isActive });
+      }
 
-    if (search && searchField && allowedSearchFields.includes(searchField)) {
-      queryBuilder.andWhere(
-        `LOWER(user.${searchField}) LIKE :search`,
-        { search: `%${search.toLowerCase()}%` },
-      );
+      if (search) {
+        if (searchField) {
+          // El frontend decide el campo de filtro
+          switch (searchField) {
+            case 'username':
+              query.andWhere('user.username ILIKE :search', {
+                search: `%${search}%`,
+              });
+              break;
+            case 'email':
+              query.andWhere('user.email ILIKE :search', {
+                search: `%${search}%`,
+              });
+              break;
+            default:
+              query.andWhere(
+                '(user.username ILIKE :search OR user.email ILIKE :search)',
+                { search: `%${search}%` },
+              );
+          }
+        } else {
+          // Búsqueda por defecto si no se envía searchField
+          query.andWhere(
+            '(user.username ILIKE :search OR user.email ILIKE :search)',
+            { search: `%${search}%` },
+          );
+        }
+      }
+
+      if (sort) {
+        query.orderBy(`user.${sort}`, (order ?? 'ASC') as 'ASC' | 'DESC');
+      }
+
+      return await paginate<User>(query, { page, limit });
+    } catch (err) {
+      console.error('Error retrieving users:', err);
+      return null;
     }
-
-    const orderField = sortBy && allowedSortFields.includes(sortBy) ? sortBy : 'id';
-    const orderDirection: 'ASC' | 'DESC' =
-      sortOrder === 'DESC' ? 'DESC' : 'ASC';
-
-    queryBuilder.orderBy(`user.${orderField}`, orderDirection);
-
-    return paginate<User>(queryBuilder, {
-      page: options.page,
-      limit: options.limit,
-    });
   }
 
   async findOne(id: string): Promise<User | null> {
@@ -90,7 +113,7 @@ export class UsersService {
       }
 
       Object.assign(user, updateUserDto);
-      return this.userRepository.save(user);
+      return await this.userRepository.save(user);
     } catch (err) {
       console.error('Error updating user:', err);
       return null;
@@ -111,7 +134,7 @@ export class UsersService {
 
   async updateProfile(id: string, filename: string): Promise<User | null> {
     try {
-      const user = await this.findOne(id);
+      const user = await this.userRepository.findOne({ where: { id } });
       if (!user) return null;
 
       user.profile = filename;
