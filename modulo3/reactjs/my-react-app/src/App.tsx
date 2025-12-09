@@ -1,35 +1,46 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import ButtonCounter from './components/ButtonCounter';
+import ColorBox from './components/ColorBox';
+import HelloWorld from './components/HelloWorld';
+import ShowDate from './components/ShowDate';
+import TextInput from './components/TextInput';
+import ToggleMessage from './components/ToggleMessage';
+import WelcomeUser from './components/WelcomeUser';
+import ConditionalText from './components/ConditionalText';
+import EmojiList from './components/EmojiList';
+import SimpleForm from './components/SimpleForm';
+import SumaForm from './components/SumaForm';
+
+
+import Greeting from "./props/Greeting";
+import PromedioTresNotasForm from './components/PromedioTresNotasForm';
+import UserCard from './props/UserCard';
+import ParentButtonOne from './props/ParentButtonOne';
+import ParentInputNotifier from './props/ParentInputNotifier';
+
+
 
 function App() {
-  const [count, setCount] = useState(0)
-
   return (
     <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+      <HelloWorld />
+      <WelcomeUser />
+      <ButtonCounter />
+      <ShowDate />
+      <TextInput />
+      <ToggleMessage />
+      <ColorBox />
+      <ConditionalText />
+      <EmojiList />
+      <SimpleForm />
+      <SumaForm />
+      <Greeting name="Santiago" />
+      <Greeting name="Maria" />
+      <PromedioTresNotasForm />
+      <UserCard user={userData} />
+      <ParentButtonOne />
+      <ParentInputNotifier />
     </>
-  )
+  );
 }
 
-export default App
+export default App;
