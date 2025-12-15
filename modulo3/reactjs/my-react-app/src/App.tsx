@@ -24,13 +24,17 @@ import LoginWithLimit from './useState/LoginWithLimit';
 import DocumentTitleChanger from './useState/DocumentTitleChanger';
 import PostLikes from './useState/PostLikes';
 import CheckboxSummary from './useState/CheckboxSummary';
-import LanguageSwitcher from './useState/LanguageSwitcher';*/}
+import LanguageSwitcher from './useState/LanguageSwitcher';
 import MultiSwitch from './useState/MultiSwitch';
+import DynamicColor from './useState/DynamicColor';
+import ClickHistory from './useState/ClickHistory';
+import LogEffect from './useEffect/LogEffect';
+import FetchUser from './useEffect/FetchUser';
+import Clock from './useEffect/Clock';
+import FetchUsers from './useEffect/FetchUsers';
+import ScrollLogger from './useEffect/ScrollLogger';
+import PersistCounter from './useEffect/PersistCounter';
 
-
-
-
-//const userData = { name: "Carlos", age: 30 };
 
 
 function App() {
@@ -55,17 +59,61 @@ function App() {
       <ParentButtonOne />
       {/* <ParentInputNotifier /> 
 
-      <HoverFont />
-      <AccessWithLimit />
-      <LoginWithLimit />
-      <DocumentTitleChanger />
-      <PostLikes />
-      <CheckboxSummary />
-      <LanguageSwitcher />*/}
-      <MultiSwitch />
-      
+      <HoverFont/>
+      <AccessWithLimit/>
+      <LoginWithLimit/>
+      <DocumentTitleChanger/>
+      <PostLikes/>
+      <CheckboxSummary/>
+      <LanguageSwitcher/>
+      <MultiSwitch/>
+      <DynamicColor/>
+      <ClickHistory/>
+      <LogEffect/>
+      <FetchUser/>
+      <Clock/>
+      <FetchUsers/>
+      <ScrollLogger/>
+      <PersistCounter/>
+
     </>
   );
 }
 
 export default App;
+*/}
+
+{/*
+// useContext, languajeContext, LanguageToggle
+
+import React, { useState } from 'react';
+import { LanguageContext } from './useContext/LanguageContext';
+import LanguageToggle from './useContext/LanguageToggle';
+
+export default function App() {
+  const [lang, setLang] = useState('es');
+  const toggleLanguage = () => setLang(prev => (prev === 'es' ? 'en' : 'es'));
+
+  return (
+    <LanguageContext.Provider value={{ lang, toggleLanguage }}>
+      <LanguageToggle />
+    </LanguageContext.Provider>
+  );
+}
+*/}
+
+
+import React, { useState } from 'react';
+import { LoginContext } from './useContext/LoginContext';
+import LoginStatus from './useContext/LoginStatus';
+
+export default function App() {
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const toggleLogin = () => setIsLoggedIn(prev => !prev);
+
+  return (
+    <LoginContext.Provider value={{ isLoggedIn, toggleLogin }}>
+      <LoginStatus />
+    </LoginContext.Provider>
+  );
+}
