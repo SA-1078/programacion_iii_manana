@@ -35,7 +35,27 @@ import FetchUsers from './useEffect/FetchUsers';
 import ScrollLogger from './useEffect/ScrollLogger';
 import PersistCounter from './useEffect/PersistCounter';
 
+import FocoAutomatico from './useRef/FocoAutomatico';
+import CirculoColorido from './useRef/CirculoColorido';
+import ScrollDemo from './useRef/ScrollDemo';
+import ReproductorSonido from './useRef/ReproductorSonido';
+import MoverCaja from './useRef/MoverCaja';
 
+import ExpensiveCalc from './useMemo/ExpensiveCalc';
+import FiltroLista from './useMemo/FiltroLista';
+import TablaOrdenada from './useMemo/TablaOrdenada';
+import PrimosMemo from './useMemo/PrimosMemo';
+import ContadorLetras from './useMemo/ContadorLetras';
+
+import Contador from './useCallback/Contador';
+import Rerender from './useCallback/Rerender';
+import Saludo from './useCallback/Saludo';
+
+import ContadorReducer from './useReducer/ContadorReducer';
+import FormularioReducer from './useReducer/FormularioReducer';
+*/}
+import AreaCirculoReducer from './useReducer/AreaCirculoReducer';
+import ListaReducer from './useReducer/ListaReducer';
 
 function App() {
   return (
@@ -74,46 +94,46 @@ function App() {
       <Clock/>
       <FetchUsers/>
       <ScrollLogger/>
+      <FocoAutomatico />
       <PersistCounter/>
+      <CirculoColorido />
+      <ScrollDemo />
+      <ReproductorSonido />
+      <MoverCaja />
 
+      <ExpensiveCalc />
+      <FiltroLista />
+      <TablaOrdenada />
+      <PrimosMemo />
+      <ContadorLetras />
+
+      <Contador/>
+      <Rerender />
+      <Saludo/>
+      <Lista/>
+   
+      <ContadorReducer />
+      <FormularioReducer />
+*/}
+      <AreaCirculoReducer />
+      <ListaReducer />
     </>
   );
 }
 
 export default App;
-*/}
 
-{/*
-// useContext, languajeContext, LanguageToggle
 
-import React, { useState } from 'react';
-import { LanguageContext } from './useContext/LanguageContext';
-import LanguageToggle from './useContext/LanguageToggle';
+{/*import Lista from './useCallback/Lista';
 
 export default function App() {
-  const [lang, setLang] = useState('es');
-  const toggleLanguage = () => setLang(prev => (prev === 'es' ? 'en' : 'es'));
+  const elementos = ["uno", "dos", "tres", "cuatro"];
 
   return (
-    <LanguageContext.Provider value={{ lang, toggleLanguage }}>
-      <LanguageToggle />
-    </LanguageContext.Provider>
+    <>
+      <h2>Ejemplo de Lista</h2>
+      <Lista items={elementos} />
+    </>
   );
 }
 */}
-
-
-import React, { useState } from 'react';
-import { LoginContext } from './useContext/LoginContext';
-import LoginStatus from './useContext/LoginStatus';
-
-export default function App() {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const toggleLogin = () => setIsLoggedIn(prev => !prev);
-
-  return (
-    <LoginContext.Provider value={{ isLoggedIn, toggleLogin }}>
-      <LoginStatus />
-    </LoginContext.Provider>
-  );
-}
