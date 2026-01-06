@@ -53,9 +53,21 @@ import Saludo from './useCallback/Saludo';
 
 import ContadorReducer from './useReducer/ContadorReducer';
 import FormularioReducer from './useReducer/FormularioReducer';
-*/}
 import AreaCirculoReducer from './useReducer/AreaCirculoReducer';
 import ListaReducer from './useReducer/ListaReducer';
+
+import AreaTriangulo from './useState/AreaTriangulo';
+
+import useIdHook from './useId/useIdHook';
+import LoginCampos from './useId/LoginCampos';
+import ListaInputs from './useId/ListaInputs';
+import SeccionFormulario from './useId/SeccionFormulario';
+import Mayor3numeros from './useId/mayor3numeros';
+
+import { BuscadorUseTransition } from './useTransition/BuscadorUseTransition';
+import { TabsUseTransition } from './useTransition/TabsUseTransition';
+*/}
+import { GaleriaDiferida } from './useTransition/GaleriaDiferida';
 
 function App() {
   return (
@@ -111,12 +123,24 @@ function App() {
       <Rerender />
       <Saludo/>
       <Lista/>
-   
+
       <ContadorReducer />
       <FormularioReducer />
-*/}
       <AreaCirculoReducer />
       <ListaReducer />
+      <AreaTriangulo />
+
+      <useIdHook />
+      <LoginCampos />
+      <ListaInputs />
+      <SeccionFormulario />
+      <Mayor3numeros />
+
+      <BuscadorUseTransition />
+      <TabsUseTransition />
+*/}
+      <GaleriaDiferida />
+
     </>
   );
 }
