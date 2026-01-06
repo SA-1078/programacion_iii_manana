@@ -66,12 +66,33 @@ import Mayor3numeros from './useId/mayor3numeros';
 
 import { BuscadorUseTransition } from './useTransition/BuscadorUseTransition';
 import { TabsUseTransition } from './useTransition/TabsUseTransition';
-*/}
 import { GaleriaDiferida } from './useTransition/GaleriaDiferida';
+
+import BusquedaDiferidaDeferred from './useDeferredValue/BusquedaDiferida';
+import TablaDiferida from './useDeferredValue/TablaDiferida';
+import ListaOrdenada from './useDeferredValue/ListaOrdenada';
+import GraficoDiferido from './useDeferredValue/GraficoDiferido';
+import ValidacionEmail from './useDeferredValue/ValidacionEmail';
+import FormularioLogin from './useDeferredValue/FormularioLogin';
+
+import { PadreConInput } from './useImperativeHandle/PadreConInput';
+import { ControladorPanel } from './useImperativeHandle/ControladorPanel';
+import { FormularioConRef } from './useImperativeHandle/FormularioConRef';
+import { PanelContadorConRef } from './useImperativeHandle/PanelContadorConRef';
+import { PaginaScroll } from './useImperativeHandle/PaginaScroll';
+
+import MedicionCaja from './useLayoutEffect/MedicionCaja';
+import { ScrollAutoTS } from './useLayoutEffect/ScrollAutoTS';
+import MostrarSinParpadeoTS from './useLayoutEffect/MostrarSinParpadeoTS';
+import { CentradoVerticalTS } from './useLayoutEffect/CentradoVerticalTS';
+import MostrarSinParpadeoTS2 from './useLayoutEffect/MostrarSinParpadeoTS2';
+*/}
+
 
 function App() {
   return (
-    <>{/*
+    <>
+{/*
       <HelloWorld />
       <WelcomeUser />
       <ButtonCounter />
@@ -138,14 +159,34 @@ function App() {
 
       <BuscadorUseTransition />
       <TabsUseTransition />
-*/}
       <GaleriaDiferida />
+   
+      <BusquedaDiferidaDeferred />
+      <TablaDiferida/>
+      <ListaOrdenada/>
+      <GraficoDiferido/>
+      <ValidacionEmail />
+      <FormularioLogin />
+ 
+      <PadreConInput />
+      <ControladorPanel />
+      <FormularioConRef />
+      <PanelContadorConRef />
+      <PaginaScroll />
+ 
+      <MedicionCaja />
+      <ScrollAutoTS />
+      <MostrarSinParpadeoTS />
+      <CentradoVerticalTS />
+      <MostrarSinParpadeoTS2 />
+ */}
+
 
     </>
   );
 }
-
 export default App;
+
 
 
 {/*import Lista from './useCallback/Lista';
