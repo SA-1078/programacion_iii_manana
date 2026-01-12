@@ -86,13 +86,21 @@ import { ScrollAutoTS } from './useLayoutEffect/ScrollAutoTS';
 import MostrarSinParpadeoTS from './useLayoutEffect/MostrarSinParpadeoTS';
 import { CentradoVerticalTS } from './useLayoutEffect/CentradoVerticalTS';
 import MostrarSinParpadeoTS2 from './useLayoutEffect/MostrarSinParpadeoTS2';
-*/}
 
+import ListaPosts from './fetch/ListaPosts';
+
+import FormularioBasico from './formularios/FormularioBasico';
+import AreaPentagono from './formularios/areaPentagono';
+import FormularioRHF from './formularios/FormularioRHF';
+import FormularioZod from './formularios/FormularioZod';
+import useFetchUsuarios from './formularios/useFetchUsuarios';
+*/}
+import ListaUsuariosPaginado from './formularios/ListaUsuariosPaginado';
 
 function App() {
   return (
     <>
-{/*
+      {/*
       <HelloWorld />
       <WelcomeUser />
       <ButtonCounter />
@@ -179,8 +187,16 @@ function App() {
       <MostrarSinParpadeoTS />
       <CentradoVerticalTS />
       <MostrarSinParpadeoTS2 />
- */}
+      
+      <ListaPosts />
 
+      <FormularioBasico />
+      <AreaPentagono />
+      <FormularioRHF />
+      <FormularioZod />
+      <useFetchUsuarios />
+      */}
+      <ListaUsuariosPaginado />
 
     </>
   );
