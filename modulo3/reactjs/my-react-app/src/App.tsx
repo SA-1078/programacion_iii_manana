@@ -190,7 +190,6 @@ function App() {
       
       <ListaPosts />
 
-      <FormularioBasico />
       <AreaPentagono />
       <FormularioRHF />
       <FormularioZod />
