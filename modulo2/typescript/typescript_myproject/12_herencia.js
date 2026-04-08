@@ -1,0 +1,11 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const _11_herencia_1 = require("./11_herencia");
+const motoStandard = new _11_herencia_1.MotoBase('Royal Enfield', 'Clásica');
+console.log(motoStandard.marca);
+console.log(motoStandard.tipo);
+motoStandard.acelerar();
+const miNinja = new _11_herencia_1.MotoDeportiva('Kawasaki', 'Deportiva');
+console.log(miNinja.marca);
+console.log(miNinja.tipo);
+miNinja.acelerar();
